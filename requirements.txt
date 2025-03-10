@@ -3,3 +3,4 @@ Flask-SQLAlchemy
 Flask-JWT-Extended
 mysql-connector-python
 python-dotenv
+psycopg2-binary
