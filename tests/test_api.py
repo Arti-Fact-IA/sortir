@@ -67,7 +67,7 @@ class TestAPI(unittest.TestCase):
                 prenom="User",
                 pseudo="testuser",
                 email="test@test.com",
-                mot_de_passe=Utilisateur.hash_password("password"),  # ✅ Hash du mot de passe
+                mot_de_passe=generate_password_hash("password"),  # ✅ Hash correct
                 telephone="1234567890"
             )
             db.session.add(user)
@@ -97,8 +97,9 @@ class TestAPI(unittest.TestCase):
     def get_auth_headers(self):
         """Génère un token JWT pour les requêtes"""
         with self.app.app_context():
-            token = create_access_token(identity=self.user_id)
+            token = create_access_token(identity=str(self.user_id))  # ✅ Force en string
         return {"Authorization": f"Bearer {token}"}
+
 
     def test_auth_login(self):
         """Test de connexion utilisateur"""
