@@ -105,7 +105,7 @@ class TestAPI(unittest.TestCase):
         """Test de connexion utilisateur"""
         logging.info("Test de connexion en cours...")
 
-        data = {"email": "test11@test.com", "password": "password"}  # ⚠️ Vérifie bien la clé ici
+        data = {"email": "test@test.com", "password": "password"}  # ⚠️ Vérifie bien la clé ici
         response = self.client.post('/api/auth/login', json=data)
 
         # 🔹 Ajoute ces prints pour voir ce que l'API renvoie réellement
