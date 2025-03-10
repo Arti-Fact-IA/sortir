@@ -19,8 +19,9 @@ def login():
     # 🔹 Vérifier si l'utilisateur existe
     user = db.session.query(Utilisateur).filter_by(email=email).first()
 
-    if not user or not check_password_hash(user.mot_de_passe, password):  # ✅ Vérification correcte
-        return jsonify({"msg": "❌ Identifiants incorrects"}), 401
+    if not user or not user.verify_password(password):
+    return jsonify({"msg": "❌ Identifiants incorrects"}), 401
+
 
     access_token = create_access_token(identity=user.id)
     return jsonify(access_token=access_token), 200
