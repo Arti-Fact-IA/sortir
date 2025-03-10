@@ -13,15 +13,18 @@ class Utilisateur(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nom = db.Column(db.String(100), nullable=False)
     prenom = db.Column(db.String(100), nullable=False)
-    pseudo = db.Column(db.String(50), unique=True, nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
-    mot_de_passe = db.Column(db.String(255), nullable=False)
-    telephone = db.Column(db.String(20))
+    pseudo = db.Column(db.String(100), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    mot_de_passe = db.Column(db.String(255), nullable=False)  # Stocke le hash du mot de passe
+    telephone = db.Column(db.String(20), nullable=True)
 
-    def set_password(self, password):
-        self.mot_de_passe = generate_password_hash(password)
+    @staticmethod
+    def hash_password(password):
+        """Hash un mot de passe"""
+        return generate_password_hash(password)
 
-    def check_password(self, password):
+    def verify_password(self, password):
+        """Vérifie un mot de passe hashé"""
         return check_password_hash(self.mot_de_passe, password)
 
 class Campus(db.Model):
